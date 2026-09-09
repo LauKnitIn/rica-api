@@ -12,5 +12,15 @@ services:
     volumes:
       - rica-db-data:/var/lib/postgresql/data
 
+  rica-mongo:
+    image: mongo:latest
+    container_name: rica-mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - rica-mongo-data:/data/db
+
 volumes:
   rica-db-data:
+  rica-mongo-data:
