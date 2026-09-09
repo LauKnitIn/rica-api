@@ -21,3 +21,6 @@ spring:
   flyway:
     enabled: true
     locations: classpath:db/migration
+  
+  mongodb:
+    uri: mongodb://localhost:27017/rica
