@@ -1,7 +1,7 @@
 package rica_api;
 
 public class InvestigadorResponse {
-      private Long id;
+    private Long id;
     private String nombreCompleto;
     private String grupoInvestigacion;
 
