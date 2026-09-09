@@ -1,16 +1,23 @@
-services:
-  rica-db:
-    image: postgres:16
-    container_name: rica-db
-    restart: unless-stopped
-    environment:
-      POSTGRES_DB: rica
-      POSTGRES_USER: rica
-      POSTGRES_PASSWORD: rica
-    ports:
-      - "5432:5432"
-    volumes:
-      - rica-db-data:/var/lib/postgresql/data
+server:
+  port:8080
+spring:
+  application:
+    name: rica-api
 
-volumes:
-  rica-db-data:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/rica
+    username: rica
+    password: rica
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        formate_sql: true
+    show-sql: true
+  
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
