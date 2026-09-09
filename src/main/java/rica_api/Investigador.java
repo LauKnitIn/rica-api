@@ -14,7 +14,7 @@ public class Investigador {
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name="nombre_completo", nullable = false, unique = true, lenght = 150)
+    @Column(name="nombre_completo", nullable = false, unique = true, length = 150)
     private String nombreCompleto;
 
      @Column(name = "correo_institucional", nullable = false, unique = true, length = 150)
