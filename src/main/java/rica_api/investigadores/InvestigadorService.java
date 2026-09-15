@@ -1,8 +1,11 @@
-package rica_api;
+package rica_api.investigadores;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+
+import rica_api.compartido.CorreoDuplicadoException;
+import rica_api.compartido.RecursoNoEncontradoException;
 
 @Service
 public class InvestigadorService {
