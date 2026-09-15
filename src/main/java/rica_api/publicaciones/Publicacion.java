@@ -1,16 +1,18 @@
-package rica_api;
+package rica_api.publicaciones;
 
 import java.util.Map;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import rica_api.investigadores.CorreoInstitucional;
+
 @Document(collection = "publicaciones") 
 public class Publicacion {
     @Id
     private String id;
 
-    private String investigadorCorreo;
+    private CorreoInstitucional investigadorCorreo;
     private String titulo;
     private String tipo;
     private Integer anio;
@@ -28,11 +30,11 @@ public class Publicacion {
         this.id = id;
     }
 
-    public String getInvestigadorCorreo() {
+    public CorreoInstitucional getInvestigadorCorreo() {
         return investigadorCorreo;
     }
 
-    public void setInvestigadorCorreo(String investigadorCorreo) {
+    public void setInvestigadorCorreo(CorreoInstitucional investigadorCorreo) {
         this.investigadorCorreo = investigadorCorreo;
     }
 

@@ -1,4 +1,4 @@
-package rica_api;
+package rica_api.compartido;
 
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;

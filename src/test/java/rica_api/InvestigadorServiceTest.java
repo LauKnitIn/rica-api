@@ -6,6 +6,13 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import rica_api.compartido.CorreoDuplicadoException;
+import rica_api.compartido.RecursoNoEncontradoException;
+import rica_api.investigadores.CorreoInstitucional;
+import rica_api.investigadores.Investigador;
+import rica_api.investigadores.InvestigadorRepository;
+import rica_api.investigadores.InvestigadorService;
+
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,7 +31,7 @@ public class InvestigadorServiceTest {
 
     @Test
     void buscarPorIdDevuelveElInvestigadorCuandoExiste() {
-        Investigador investigador = new Investigador(1L, "Ana Torres", "ana.torres@uptc.edu.co", "GIT-UPTC");
+        Investigador investigador = new Investigador(1L, "Ana Torres", new CorreoInstitucional( "ana.torres@uptc.edu.co"), "GIT-UPTC");
         when(investigadorRepository.findById(1L)).thenReturn(Optional.of(investigador));
 
         Investigador resultado = investigadorService.buscarPorId(1L);
@@ -43,13 +50,13 @@ public class InvestigadorServiceTest {
 
     @Test
     void registrarRechazaCorreoInstitucionalDuplicado() {
-        Investigador nuevo = new Investigador(null, "Carlos Ruiz", "carlos.ruiz@uptc.edu.co", "GIT-UPTC");
-        when(investigadorRepository.existsByCorreoInstitucional("carlos.ruiz@uptc.edu.co")).thenReturn(true);
+        Investigador nuevo = new Investigador(null, "Carlos Ruiz", new CorreoInstitucional("carlos.ruiz@uptc.edu.co"), "GIT-UPTC");
+        when(investigadorRepository.existsByCorreoInstitucional_Valor(new CorreoInstitucional("carlos.ruiz@uptc.edu.co"))).thenReturn(true);
 
-        assertThatThrownBy(() -> investigadorService.registrar(nuevo))
+        assertThatThrownBy(() -> investigadorService.registrar(nuevo.getNombreCompleto(), nuevo.getCorreoInstitucional().valor(), nuevo.getGrupoInvestigacion()))
                 .isInstanceOf(CorreoDuplicadoException.class);
 
-        verify(investigadorRepository).existsByCorreoInstitucional("carlos.ruiz@uptc.edu.co");
+        verify(investigadorRepository).existsByCorreoInstitucional_Valor(new CorreoInstitucional("carlos.ruiz@uptc.edu.co"));
     }
     
 }

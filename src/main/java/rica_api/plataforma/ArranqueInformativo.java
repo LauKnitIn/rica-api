@@ -13,7 +13,6 @@ public class ArranqueInformativo implements CommandLineRunner{
 
     @Override
     public void run(String... args) throws Exception {
-        // TODO Auto-generated method stub
         System.out.println(saludoInstitucionalService.mensajeDeBienvenida());
     }
 

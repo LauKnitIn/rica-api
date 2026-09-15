@@ -1,4 +1,6 @@
-package rica_api;
+package rica_api.publicaciones;
+
+import rica_api.investigadores.CorreoInstitucional;
 
 public class PublicacionMapper {
     private PublicacionMapper() {
@@ -6,7 +8,8 @@ public class PublicacionMapper {
 
     public static Publicacion aEntidad(PublicacionRequest request) {
         Publicacion p = new Publicacion();
-        p.setInvestigadorCorreo(request.getInvestigadorCorreo());
+        CorreoInstitucional c = new CorreoInstitucional(request.getInvestigadorCorreo());
+        p.setInvestigadorCorreo(c);
         p.setTitulo(request.getTitulo());
         p.setTipo(request.getTipo());
         p.setAnio(request.getAnio());
@@ -16,7 +19,7 @@ public class PublicacionMapper {
 
     public static PublicacionResponse aResponse(Publicacion publicacion) {
         return new PublicacionResponse(
-                publicacion.getInvestigadorCorreo(),
+                publicacion.getInvestigadorCorreo().toString(),
                 publicacion.getTitulo(),
                 publicacion.getTipo(),
                 publicacion.getAnio(),

@@ -10,9 +10,11 @@ import rica_api.compartido.RecursoNoEncontradoException;
 @Service
 public class InvestigadorService {
     private final InvestigadorRepository investigadorRepository;
+    private final InvestigadorFactory investigadorFactory;
 
-    public InvestigadorService(InvestigadorRepository investigadorRepository) {
+    public InvestigadorService(InvestigadorRepository investigadorRepository, InvestigadorFactory investigadorFactory) {
         this.investigadorRepository = investigadorRepository;
+        this.investigadorFactory = investigadorFactory;
     }
 
     public List<Investigador> listarTodos() {
@@ -25,8 +27,9 @@ public class InvestigadorService {
                         "No existe un investigador con id " + id));
     }
 
-    public Investigador registrar(Investigador investigador) {
-        if (investigadorRepository.existsByCorreoInstitucional(investigador.getCorreoInstitucional())) {
+    public Investigador registrar(String nombre, String correoInstitucional, String grupoInvestigacion) {
+        Investigador investigador = investigadorFactory.crear(nombre, correoInstitucional, grupoInvestigacion);
+        if (investigadorRepository.existsByCorreoInstitucional_Valor(investigador.getCorreoInstitucional())) {
             throw new CorreoDuplicadoException(
                     "Ya existe un investigador registrado con el correo " + investigador.getCorreoInstitucional());
         }

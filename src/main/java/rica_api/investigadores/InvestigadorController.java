@@ -1,4 +1,4 @@
-package rica_api;
+package rica_api.investigadores;
 
 import java.net.URI;
 import java.util.List;
@@ -39,7 +39,7 @@ public class InvestigadorController {
     @PostMapping
     public ResponseEntity<InvestigadorResponse> registrar(@Valid @RequestBody InvestigadorRequest request) {
         Investigador investigador = InvestigadorMapper.aEntidad(request);
-        Investigador guardado = investigadorService.registrar(investigador);
+        Investigador guardado = investigadorService.registrar(investigador.getNombreCompleto(), investigador.getCorreoInstitucional().valor(), investigador.getGrupoInvestigacion());
         InvestigadorResponse response = InvestigadorMapper.aResponse(guardado);
         return ResponseEntity
                 .created(URI.create("/api/investigadores/" + guardado.getId()))
