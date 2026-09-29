@@ -7,7 +7,7 @@ public class InvestigadorRequest {
     @NotBlank(message = "El nombre completo es obligatorio")
     private String nombreCompleto;
 
-    @NotBlank(message = "El correo institucional es obligatorio")
+    @NotBlank(message = "El correo instituciona+l es obligatorio")
     @Email(message = "El correo institucional debe tener un formato válido")
     private String correoInstitucional;
 

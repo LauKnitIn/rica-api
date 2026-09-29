@@ -17,3 +17,8 @@ Dentro del agregado `Investigador` viven sus atributos propios y sus invariantes
 ## Raíz del agregado
 
 La raíz del agregado `Investigador` es la entidad `Investigador` misma, con su identidad principal en `id` y su identidad de negocio en `correoInstitucional`. La razón de esta raíz es que la unicidad del investigador y la validación de su correo son invariantes del agregado; la publicación no pertenece a esa raíz porque se registra y consulta como entidad independiente según el correo del investigador, no como parte embebida del investigador.
+ # Taller Hexagonal
+1. InvestigadorRepository es un puerto secundario porque es el nucleo quien inicia la llamada a la base de datos para guardar u obtener informacion
+2. Investigador controller es un adaptador primario porque recibe las peticiones desde afuera y llama al caso de uso en el nucleo, envuelve la técnologia de spring boot usando anotaciones de framework
+3. Faltaría definir una interfaz en el nucleo para exponer ese contrato a los adaptadores primarios y así desacoplar el nucleo del framework.
+4. 
