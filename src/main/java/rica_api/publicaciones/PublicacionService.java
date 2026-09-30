@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 import rica_api.compartido.LimiteAnualExcedidoException;
 import rica_api.compartido.RecursoNoEncontradoException;
-import rica_api.investigadores.InvestigadorRepository;
+import rica_api.investigadores.infraestructura.salida.persistencia.InvestigadorRepository;
 
 @Service
 public class PublicacionService {
@@ -25,7 +25,7 @@ public class PublicacionService {
     }
 
     public Publicacion registrar(Publicacion publicacion) {
-        if (!investigadorRepository.existsByCorreoInstitucional_Valor(publicacion.getInvestigadorCorreo())) {
+        if (!investigadorRepository.existsByCorreoInstitucional_Valor(publicacion.getInvestigadorCorreo().valor())) {
             throw new RecursoNoEncontradoException(
                     "No existe un investigador con correo " + publicacion.getInvestigadorCorreo());
         }

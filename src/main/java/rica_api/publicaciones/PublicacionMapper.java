@@ -1,6 +1,6 @@
 package rica_api.publicaciones;
 
-import rica_api.investigadores.CorreoInstitucional;
+import rica_api.investigadores.dominio.CorreoInstitucional;
 
 public class PublicacionMapper {
     private PublicacionMapper() {

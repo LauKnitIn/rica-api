@@ -1,4 +1,4 @@
-package rica_api.compartido;
+package rica_api.investigadores.dominio;
 
 /**
  * CorreoDuplicadoException

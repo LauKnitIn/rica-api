@@ -6,12 +6,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import rica_api.compartido.CorreoDuplicadoException;
 import rica_api.compartido.RecursoNoEncontradoException;
-import rica_api.investigadores.CorreoInstitucional;
-import rica_api.investigadores.Investigador;
-import rica_api.investigadores.InvestigadorRepository;
-import rica_api.investigadores.InvestigadorService;
+import rica_api.investigadores.aplicacion.InvestigadorFactory;
+import rica_api.investigadores.aplicacion.InvestigadorService;
+import rica_api.investigadores.aplicacion.RepositorioInvestigadores;
+import rica_api.investigadores.dominio.CorreoDuplicadoException;
+import rica_api.investigadores.dominio.CorreoInstitucional;
+import rica_api.investigadores.dominio.Investigador;
+
 
 import java.util.Optional;
 
@@ -24,7 +26,10 @@ import static org.mockito.Mockito.when;
 public class InvestigadorServiceTest {
 
     @Mock
-    private InvestigadorRepository investigadorRepository;
+    private RepositorioInvestigadores investigadorRepository;
+
+    @Mock
+    private InvestigadorFactory investigadorFactory;
 
     @InjectMocks
     private InvestigadorService investigadorService;
@@ -32,7 +37,7 @@ public class InvestigadorServiceTest {
     @Test
     void buscarPorIdDevuelveElInvestigadorCuandoExiste() {
         Investigador investigador = new Investigador(1L, "Ana Torres", new CorreoInstitucional( "ana.torres@uptc.edu.co"), "GIT-UPTC");
-        when(investigadorRepository.findById(1L)).thenReturn(Optional.of(investigador));
+        when(investigadorRepository.buscarPorId(1L)).thenReturn(Optional.of(investigador));
 
         Investigador resultado = investigadorService.buscarPorId(1L);
 
@@ -41,7 +46,7 @@ public class InvestigadorServiceTest {
 
     @Test
     void buscarPorIdLanzaExcepcionCuandoNoExiste() {
-        when(investigadorRepository.findById(99L)).thenReturn(Optional.empty());
+        when(investigadorRepository.buscarPorId(99L)).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> investigadorService.buscarPorId(99L))
                 .isInstanceOf(RecursoNoEncontradoException.class)
@@ -51,12 +56,15 @@ public class InvestigadorServiceTest {
     @Test
     void registrarRechazaCorreoInstitucionalDuplicado() {
         Investigador nuevo = new Investigador(null, "Carlos Ruiz", new CorreoInstitucional("carlos.ruiz@uptc.edu.co"), "GIT-UPTC");
-        when(investigadorRepository.existsByCorreoInstitucional_Valor(new CorreoInstitucional("carlos.ruiz@uptc.edu.co"))).thenReturn(true);
+    
+        when(investigadorFactory.crear("Carlos Ruiz", "carlos.ruiz@uptc.edu.co", "GIT-UPTC")).thenReturn(nuevo);
+    
+        when(investigadorRepository.existeCorreo("carlos.ruiz@uptc.edu.co")).thenReturn(true);
 
         assertThatThrownBy(() -> investigadorService.registrar(nuevo.getNombreCompleto(), nuevo.getCorreoInstitucional().valor(), nuevo.getGrupoInvestigacion()))
-                .isInstanceOf(CorreoDuplicadoException.class);
+            .isInstanceOf(CorreoDuplicadoException.class);
 
-        verify(investigadorRepository).existsByCorreoInstitucional_Valor(new CorreoInstitucional("carlos.ruiz@uptc.edu.co"));
+        verify(investigadorRepository).existeCorreo("carlos.ruiz@uptc.edu.co");
     }
     
 }

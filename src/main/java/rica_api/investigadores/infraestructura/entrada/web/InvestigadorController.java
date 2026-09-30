@@ -1,4 +1,4 @@
-package rica_api.investigadores;
+package rica_api.investigadores.infraestructura.entrada.web;
 
 import java.net.URI;
 import java.util.List;
@@ -12,14 +12,17 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import rica_api.investigadores.Valid;
+import rica_api.investigadores.aplicacion.InvestigadorUseCase;
+import rica_api.investigadores.dominio.Investigador;
+
 @RestController 
 @RequestMapping("/api/investigadores")
 @CrossOrigin(origins = "*")
 public class InvestigadorController {
 
-    private final InvestigadorService investigadorService;
-
-    public InvestigadorController(InvestigadorService investigadorService) {
+    private final InvestigadorUseCase investigadorService;
+    public InvestigadorController(InvestigadorUseCase investigadorService) {
         this.investigadorService = investigadorService;
     }
 

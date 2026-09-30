@@ -5,7 +5,7 @@ import java.util.Map;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import rica_api.investigadores.CorreoInstitucional;
+import rica_api.investigadores.dominio.CorreoInstitucional;
 
 @Document(collection = "publicaciones") 
 public class Publicacion {
