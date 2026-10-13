@@ -22,3 +22,4 @@ La raíz del agregado `Investigador` es la entidad `Investigador` misma, con su 
 2. Investigador controller es un adaptador primario porque recibe las peticiones desde afuera y llama al caso de uso en el nucleo, envuelve la técnologia de spring boot usando anotaciones de framework
 3. Faltaría definir una interfaz en el nucleo para exponer ese contrato a los adaptadores primarios y así desacoplar el nucleo del framework.
 4. Es del adaptador no del nucleo, porque a pesar de manejar lógica de construccion de Investigadores tiene la anotación de framework @Component
+# Taller Microservicios
